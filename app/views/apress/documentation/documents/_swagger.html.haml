@@ -1,0 +1,10 @@
+.swagger-section
+  .swagger-ui-wrap{id: "swagger-ui-container"}
+
+:javascript
+  app.swagger = {
+    "docsUrl": "#{docs_path(slug: document.slug)}",
+    "docsExpansion": "list"
+  };
+
+  app.extensions = #{document.swagger_documents.to_json};

@@ -1,0 +1,7 @@
+test:
+  adapter: sqlite3
+  encoding: utf8
+  pool: 5
+  timeout: 5000
+  database: ":memory:"
+  verbosity: quiet

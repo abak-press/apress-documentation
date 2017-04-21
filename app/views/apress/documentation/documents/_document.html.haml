@@ -1,0 +1,22 @@
+%h1
+  = document.title.to_s.html_safe || document.slug.to_s.html_safe
+
+%h3 Описание
+%p
+  = (document.description || "Нет данных").to_s.html_safe
+
+%h3 Бизнесс описание
+%p
+  = (document.business_desc || "Нет данных").to_s.html_safe
+
+%h3 Публичность
+%p
+  = (document.publicity || "Нет данных").to_s.html_safe
+
+%h3 Тесты
+%p
+  = (document.tests || "Нет данных").to_s.html_safe
+
+%h3 Модули-потребители
+%p
+  = (document.consumers || "Нет данных").to_s.html_safe

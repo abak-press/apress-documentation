@@ -1,0 +1,10 @@
+/.bundle/
+/Gemfile.lock
+/coverage/
+/doc/
+/spec/reports/
+/tmp/
+/gemfiles/
+
+# rspec failure tracking
+.rspec_status

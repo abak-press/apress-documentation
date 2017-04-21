@@ -1,0 +1,15 @@
+%h4 Бизнесс описание
+%span
+  {{fetch document.business_desc "Нет данных"}}
+
+%h4 Публичность
+%span
+  {{fetch document.publicity "Нет данных"}}
+
+%h4 Тесты
+%span
+  {{fetch document.tests "Нет данных"}}
+
+%h4 Модули-потребители
+%span
+  {{fetch document.consumers "Нет данных"}}

@@ -1,0 +1,6 @@
+%ul
+  %li
+    = link_to 'Главная', documentation_url
+  - menu.each do |_key, document|
+    %li
+      = render 'layouts/apress/documentation/menu_item', document: document

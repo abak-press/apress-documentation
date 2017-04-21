@@ -1,0 +1,26 @@
+!!!
+%html
+  %head
+    = stylesheet_link_tag 'package/swagger_screen', media: :screen
+    = stylesheet_link_tag 'package/swagger_print', media: :print
+    = javascript_include_tag 'package/swagger', defer: true
+    :javascript
+      var app = {
+        "swagger": {
+          "docsUrl": "#{docs_path}"
+        }
+      }
+
+
+  %body.swagger-section
+    .header
+      .swagger-ui-wrap
+        %form{id: 'api_selector'}
+          .input
+            %input{placeholder: "http://example.com/api", id: "input_baseUrl", name: "baseUrl", type: "text"}
+          .auth_container
+          .input
+            %a.header__btn{id: "explore", href: "#"}
+              Explore
+    .swagger-ui-wrap{id: 'message-bar'}
+    .swagger-ui-wrap{id: "swagger-ui-container"}
