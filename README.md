@@ -1,10 +1,10 @@
-# Apress::Documenation
+# Apress::Documentation
 
 
 ## Установка
 
 ```ruby
-gem 'apress-documenation'
+gem 'apress-documentation'
 ```
 
 ## Использвание
