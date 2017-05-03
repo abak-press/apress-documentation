@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['deniskorobitcin@gmail.com']
   spec.summary       = 'apress-documentation'
   spec.description   = 'apress-documentation'
-  spec.homepage      = 'https://github.com/abak-press/apress-documanetation'
+  spec.homepage      = 'https://github.com/abak-press/apress-documentation'
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
