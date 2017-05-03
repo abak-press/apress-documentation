@@ -1,0 +1,19 @@
+p.normal {
+  font-weight: normal;
+}
+
+p.italic {
+  font-style: italic;
+}
+
+p.oblique {
+  font-style: oblique;
+}
+
+p.light {
+  font-weight: lighter;
+}
+
+p.bold {
+  font-weight: bold;
+}

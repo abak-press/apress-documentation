@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  app:
+    image: abakpress/ruby-app:$RUBY_IMAGE_TAG
+    environment:
+      - BUNDLE_PATH=/bundle/$DOCKER_RUBY_VERSION
+      - BUNDLE_CONFIG=/app/.bundle/config
+      - SSH_AUTH_SOCK=/ssh/auth/sock
+    command: bash

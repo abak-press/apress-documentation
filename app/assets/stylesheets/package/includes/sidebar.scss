@@ -1,0 +1,16 @@
+.sidebar {
+  width: $sidebar-width;
+  z-index: 9;
+  left: 0;
+  position: fixed;
+  top: 0;
+  height: 100%;
+  padding: $sidebar-padding;
+  background-color: $sidebar-bg;
+  border-right: 1px solid $border-accent-color;
+  box-shadow: $box-shadow-accent;
+
+  & > ul li {
+    margin-left: 6%;
+  }
+}

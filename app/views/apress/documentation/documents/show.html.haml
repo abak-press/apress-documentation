@@ -1,0 +1,13 @@
+= cache params[:path] do
+  - if @document
+    - if @document.swagger?
+      = render 'swagger', document: @document
+    - else
+      = render 'document', document: @document
+
+  - else
+    %h1 Документация АБАК-ПРЕСС
+    %p
+      Данный ресурс содержит все описания модулей и контрактов разработанных в АБАК-ПРЕСС.
+      Подробную информацию о устройстве системы можно найти в геме
+      %a{href: "https://github.com/abak-press/apress-documentation"}apress-documentation.

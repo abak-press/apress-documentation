@@ -1,0 +1,17 @@
+!!!
+%html
+  %head
+    = stylesheet_link_tag 'package/swagger_screen', media: :screen
+    = stylesheet_link_tag 'package/swagger_print', media: :print
+    = stylesheet_link_tag 'package/documentation', media: 'all'
+    = javascript_include_tag 'package/swagger', defer: true
+    :javascript
+      var app = {};
+
+  %body
+    %main
+      - cache 'sidebar' do
+        = render 'layouts/apress/documentation/sidebar'
+
+      %section.content
+        = yield
