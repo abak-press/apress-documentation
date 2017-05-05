@@ -8,14 +8,21 @@ require 'apress/documentation/storage/modules'
 require 'apress/documentation/engine'
 require "apress/documentation/version"
 
-# Public
+# Public: Основной модуль для использования
 #
-# Основной модуль для использования
 # Содержит методы построения и получения динамически определяемых документов
 module Apress
   module Documentation
     def self.modules
       Apress::Documentation::Storage::Modules.instance
+    end
+
+    def self.add_load_path(path)
+      ActiveSupport.on_load(:documentation) do
+        Dir[File.join(path, '/**/*.rb')].each { |file| require file }
+
+        yield if block_given?
+      end
     end
 
     class << self

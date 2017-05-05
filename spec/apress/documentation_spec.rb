@@ -213,4 +213,16 @@ RSpec.describe Apress::Documentation do
       expect(Apress::Documentation.fetch_document('module/doc1/doc2/doc3').title).to eq 'test'
     end
   end
+
+  describe '#add_load_path' do
+    it 'loads all docs in folder on callback run' do
+      Apress::Documentation.add_load_path(Rails.root.join('lib/stub_docs'))
+
+      ActiveSupport.run_load_hooks(:documentation)
+
+      module_document = Apress::Documentation.data['test_load_module']
+      expect(module_document.description).to eq 'Cool module'
+      expect(module_document.documents['document'].documents['child'].description).to eq 'Cool document'
+    end
+  end
 end
