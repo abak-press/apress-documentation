@@ -7,6 +7,8 @@ module Apress
       def show
         @document = Apress::Documentation.fetch_document(params[:path]) if params[:path]
       end
+
+      ActiveSupport.run_load_hooks(:'apress/documentation/documents_controller', self)
     end
   end
 end
