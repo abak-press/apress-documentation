@@ -12,4 +12,4 @@
 //= require swagger-ui/swagger-ui.js
 //= require swagger_ui.js
 //= require_tree ../templates
-//= require swagger_binder
+//= require swagger_binder.js
