@@ -12,4 +12,7 @@
 //= require swagger-ui/swagger-ui.js
 //= require swagger_ui.js
 //= require_tree ../templates
+//= require shared/dependency_switcher.js
 //= require swagger_binder.js
+
+DependencySwitcher.switchBind();

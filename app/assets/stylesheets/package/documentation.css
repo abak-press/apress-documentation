@@ -5,4 +5,5 @@
  *= require document/sidebar
  *= require document/swagger
  *= require document/document
+ *= require document/switch
  */

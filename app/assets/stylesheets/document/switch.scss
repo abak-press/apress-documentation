@@ -1,0 +1,46 @@
+.switch {
+  position: relative; width: 154px;
+  user-select: none;
+}
+.switch-checkbox {
+  display: none;
+}
+.switch-label {
+  display: block; overflow: hidden; cursor: pointer;
+  border: 2px solid #999; border-radius: 26px;
+}
+.switch-inner {
+  display: block; width: 200%; margin-left: -100%;
+  transition: margin .3s ease-in 0s;
+}
+.switch-inner:before,
+.switch-inner:after {
+  display: block; float: left; width: 50%; height: 19px; padding: 0; line-height: 19px;
+  font-size: 14px; color: #fff; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+  box-sizing: border-box;
+}
+.switch-inner:before {
+  content: 'ВСЕ';
+  padding-left: 10px;
+  background-color: #34a7c1; color: #fff;
+}
+.switch-inner:after {
+  content: 'ДРУГИЕ МОДУЛИ';
+  padding-right: 10px;
+  background-color: #eee; color: #999;
+  text-align: right;
+}
+.switch-switch {
+  display: block; width: 17px; margin: 1px;
+  background: #fff;
+  position: absolute; top: 0; bottom: 0;
+  right: 134px;
+  border: 2px solid #999; border-radius: 30px;
+  transition: all .3s ease-in 0s;
+}
+.switch-checkbox:checked + .switch-label .switch-inner {
+  margin-left: 0;
+}
+.switch-checkbox:checked + .switch-label .switch-switch {
+  right: 0;
+}

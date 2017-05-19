@@ -9,6 +9,7 @@ module Apress
 
       def load_docs
         ActiveSupport.run_load_hooks(:documentation)
+        Apress::Documentation.validate_dependencies!
       end
     end
   end

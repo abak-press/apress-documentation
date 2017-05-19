@@ -15,7 +15,7 @@ module Apress
         class SwaggerBindPointExtractor
           def extract(&block)
             instance_eval(&block)
-            "#{@tag}_#{@operation_id}_content" if @tag && @operation_id
+            "#{@tag}_#{@operation_id}" if @tag && @operation_id
           end
 
           def method_missing(name, *args, &block)

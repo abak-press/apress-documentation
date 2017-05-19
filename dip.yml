@@ -18,7 +18,7 @@ interaction:
 
   irb:
     service: app
-    command: irb
+    command: bundle exec irb
 
   bundle:
     service: app

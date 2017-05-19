@@ -10,8 +10,6 @@ module Apress
       # Описывает отдельный документ
       class Document < BaseStorage
         include Apress::Documentation::Dsl::Document
-        # Public: Составной слаг, используется как URL
-        attr_reader :slug
         # Public: Заголовок документа
         json_attr :title
         # Public: Описание документа
@@ -22,8 +20,6 @@ module Apress
         json_attr :tests
         # Public: Публичность описываемого функционала - (Защищенный, Публичный)
         json_attr :publicity
-        # Public: Модули потребители
-        json_attr :consumers
 
         def initialize(slug)
           @slug = slug
@@ -42,6 +38,13 @@ module Apress
         # Public: Хранит объекты SwaggerDocument для отображения на одной старнице через SwaggerUI
         def swagger_documents
           @swagger_documents ||= {}
+        end
+
+        # Public: находит документ верхнего уровня - модуль
+        #
+        # Returns Document
+        def current_module
+          Apress::Documentation::Storage::Modules.instance[slug.to_s.split('/').first]
         end
       end
     end
