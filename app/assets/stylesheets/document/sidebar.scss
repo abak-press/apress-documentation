@@ -11,6 +11,7 @@
   background-color: $sidebar-bg;
   border-right: 1px solid $border-accent-color;
   box-shadow: $box-shadow-accent;
+  overflow: scroll;
 
   & > ul li {
     margin-left: 6%;

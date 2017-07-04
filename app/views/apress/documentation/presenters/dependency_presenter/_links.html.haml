@@ -1,0 +1,17 @@
+:ruby
+  dependency = local_assigns.fetch(:dependency)
+  contract_def = local_assigns.fetch(:contract_def)
+  current_document = local_assigns.fetch(:current_document)
+  title =
+    if dependency.title
+      dependency.current_module.title.to_s + "::" + dependency.title .to_s
+    else
+      dependency.slug
+    end
+
+.link
+  = link_to title, document_url_with_swagger(dependency)
+  - if contract_def != current_document
+    = "("
+    = link_to(contract_def.title || contract_def.slug, document_url_with_swagger(contract_def))
+    = ")"

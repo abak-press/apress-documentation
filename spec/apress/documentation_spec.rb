@@ -1,29 +1,23 @@
 require "spec_helper"
 
 RSpec.describe Apress::Documentation do
-  after do
-    Apress::Documentation.data.clear
-  end
-
   context 'simple build call' do
     before do
       Apress::Documentation.build(:doc) do
         title 'name'
         description 'description'
-        publicity 'publicity'
+        publicity :public
         tests 'tests'
-        consumers 'consumers'
       end
     end
 
-    it 'creates document' do
+    it 'create document' do
       expect(Apress::Documentation.data.size).to eq 1
       doc = Apress::Documentation.data['doc']
       expect(doc.title).to eq 'name'
       expect(doc.description).to eq 'description'
-      expect(doc.publicity).to eq 'publicity'
+      expect(doc.publicity).to eq 'Публичный'
       expect(doc.tests).to eq 'tests'
-      expect(doc.consumers).to eq 'consumers'
     end
   end
 
@@ -36,7 +30,7 @@ RSpec.describe Apress::Documentation do
       )
     end
 
-    it 'creates document' do
+    it 'create document' do
       expect(Apress::Documentation.data.size).to eq 1
       doc = Apress::Documentation.data['doc']
       expect(doc.title).to eq 'some'
@@ -57,7 +51,7 @@ RSpec.describe Apress::Documentation do
       end
     end
 
-    it 'creates all documents' do
+    it 'create all documents' do
       expect(Apress::Documentation.data.size).to eq 1
       doc = Apress::Documentation.data['doc'].documents['doc1']
       expect(doc.title).to eq 'cool document'
@@ -78,7 +72,7 @@ RSpec.describe Apress::Documentation do
       end
     end
 
-    it 'creates all documents' do
+    it 'create all documents' do
       doc = Apress::Documentation.data['doc']
       expect(doc.documents.size).to eq 2
       expect(doc.documents['doc1'].title).to eq 'cool document'
@@ -127,7 +121,9 @@ RSpec.describe Apress::Documentation do
       doc = Apress::Documentation.data['doc'].documents['doc1']
       expect(doc.title).to eq 'cool document'
       expect(doc.swagger_documents.size).to eq 1
-      expect(doc.swagger_documents.as_json).to eq("some_point" => {"business_desc" => "cool document 2"})
+      expect(doc.swagger_documents.as_json).to eq(
+        "some_point" => {"business_desc" => "cool document 2", slug: "doc/doc1/some_point"}
+      )
     end
 
     context 'when swagger document is rewritten' do
@@ -152,7 +148,11 @@ RSpec.describe Apress::Documentation do
         expect(doc.title).to eq 'cool document'
         expect(doc.swagger_documents.size).to eq 1
         expect(doc.swagger_documents.as_json).to eq(
-          "some_point" => {"business_desc" => "cool document 2", "tests" => "somewhere"}
+          "some_point" => {
+            "business_desc" => "cool document 2",
+            "tests" => "somewhere",
+            slug: "doc/doc1/some_point"
+          }
         )
       end
     end
@@ -182,7 +182,7 @@ RSpec.describe Apress::Documentation do
         expect(doc.title).to eq 'swagger document'
         expect(doc.swagger_documents.size).to eq 1
         expect(doc.swagger_documents.as_json).to eq(
-          "tests_testIndex_content" => {"tests" => "here"}
+          "tests_testIndex" => {"tests" => "here", slug: "swagger_auto/swagger1/tests_testIndex"}
         )
       end
     end
@@ -192,6 +192,108 @@ RSpec.describe Apress::Documentation do
         expect do
           Apress::Documentation.build(:module, unexpected_field: 'test')
         end.to raise_error RuntimeError
+      end
+    end
+  end
+
+  context 'publicity' do
+    context 'when argumens is valid' do
+      it 'set proper value to document' do
+        Apress::Documentation.build(:module) do
+          document(:doc1) do
+            publicity :public
+          end
+        end
+
+        doc = Apress::Documentation.data['module'].documents['doc1']
+
+        expect(doc.publicity).to eq 'Публичный'
+      end
+    end
+
+    context 'when argument is invalid' do
+      it 'raises error' do
+        expect do
+          Apress::Documentation.build(:module) do
+            document(:doc1) do
+              publicity :test
+            end
+          end
+        end.to raise_error("Неизвестный уровень доступа - test, объявлен в документе module/doc1")
+      end
+    end
+  end
+
+  context 'dependencies' do
+    context 'for document' do
+      context 'when refered document exists' do
+        before do
+          Apress::Documentation.build(:module) do
+            document(:doc) do
+              depends_on('module/doc2')
+            end
+
+            document(:doc2)
+          end
+        end
+
+        it 'build dependency' do
+          doc = Apress::Documentation.data['module'].documents['doc']
+          doc2 = Apress::Documentation.data['module'].documents['doc2']
+          expect(doc.dependencies).to include [doc, doc2]
+        end
+      end
+
+      context 'when refered document does exists' do
+        before do
+          Apress::Documentation.build(:module) do
+            document(:doc) do
+              depends_on('module/doc2')
+            end
+          end
+        end
+
+        it 'is not valid' do
+          doc = Apress::Documentation.data['module'].documents['doc']
+          expect { Apress::Documentation.validate_dependencies! }.
+            to raise_error("Несуществующий документ - module/doc2, объявлен в - [#{doc.inspect}]")
+        end
+      end
+    end
+
+    context 'for swagger_document' do
+      context 'when refered document exists' do
+        before do
+          Apress::Documentation.build(:module) do
+            document(:doc) do
+              depends_on('module/doc2')
+            end
+
+            document(:doc2)
+          end
+        end
+
+        it 'build dependency' do
+          doc = Apress::Documentation.data['module'].documents['doc']
+          doc2 = Apress::Documentation.data['module'].documents['doc2']
+          expect(doc.dependencies).to include [doc, doc2]
+        end
+      end
+
+      context 'when refered document does exists' do
+        before do
+          Apress::Documentation.build(:module) do
+            document(:doc) do
+              depends_on('module/doc2')
+            end
+          end
+        end
+
+        it 'is not valid' do
+          doc = Apress::Documentation.data['module'].documents['doc']
+          expect { Apress::Documentation.validate_dependencies! }.
+            to raise_error("Несуществующий документ - module/doc2, объявлен в - [#{doc.inspect}]")
+        end
       end
     end
   end

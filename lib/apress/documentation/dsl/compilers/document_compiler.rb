@@ -1,5 +1,7 @@
 require_relative 'base_compiler'
 require_relative '../utils/swagger_bind_point_extractor'
+require_relative './mixins/dependable'
+require_relative './mixins/publicity'
 
 module Apress
   module Documentation
@@ -7,12 +9,12 @@ module Apress
       module Compilers
         # Private: "Компилирует" блок для объекта класса Document заполняя в нем нужные аттрибуты
         class DocumentCompiler < BaseCompiler
+          include Apress::Documentation::Dsl::Mixins::Dependable
+          include Apress::Documentation::Dsl::Mixins::Publicity
           setters :title,
                   :description,
                   :business_desc,
-                  :publicity,
-                  :tests,
-                  :consumers
+                  :tests
 
           # Public: метод DSL, Создает документ, осуществляет вложеность документов
           #
@@ -39,10 +41,10 @@ module Apress
             slug = slug.to_s
             doc = target.documents[slug]
             doc ||= Apress::Documentation::Storage::Document.new(target.slug + '/' + slug)
-
-            doc.compile(fields, &block)
+            Storage::DependencyGraph.instance.add_document(doc)
 
             target.documents[slug] = doc
+            doc.compile(fields, &block)
           end
 
           # Public: метод DSL, Создает swagger-описание внутри документа.
@@ -88,11 +90,11 @@ module Apress
           def swagger_bind(html_id = nil, fields = {}, &block)
             html_id = recognize_html_id(html_id, &block)
             doc = target.swagger_documents[html_id]
-            doc ||= Apress::Documentation::Storage::SwaggerDocument.new(target)
-
-            doc.compile(fields, &block)
+            doc ||= Apress::Documentation::Storage::SwaggerDocument.new(target, html_id)
+            Storage::DependencyGraph.instance.add_document(doc)
 
             target.swagger_documents[html_id] = doc
+            doc.compile(fields, &block)
           end
 
           private

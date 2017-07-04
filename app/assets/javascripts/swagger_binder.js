@@ -11,7 +11,9 @@ $(function () {
     }
 
     for(var ext in app.extensions) {
-      $('#' + ext).prepend(HandlebarsTemplates['document']({document: app.extensions[ext]}));
+      $('#' + ext + '_content').prepend(HandlebarsTemplates['document']({document: app.extensions[ext]}));
     }
+
+    DependencySwitcher.switchBind();
   });
 });

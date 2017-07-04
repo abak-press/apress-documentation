@@ -17,6 +17,16 @@
 %p
   = (document.tests || "Нет данных").to_s.html_safe
 
-%h3 Модули-потребители
-%p
-  = (document.consumers || "Нет данных").to_s.html_safe
+%h3 Зависимости
+.js-dependencies-container
+  .switch
+    %input.switch-checkbox.js-dependency-switch{type: "checkbox", id: "doc-switch"}
+    %label.switch-label{for: "doc-switch"}
+      %span.switch-inner
+      %span.switch-switch
+
+  %h4 Зависит от
+  != Apress::Documentation::DependencyPresenter.new(self, document).render_deps
+
+  %h4 Используется в
+  != Apress::Documentation::DependencyPresenter.new(self, document).render_deps(reverse: true)

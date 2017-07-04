@@ -19,3 +19,9 @@ Combustion.initialize! :action_controller do
 end
 
 require 'rspec/rails'
+
+RSpec.configure do |config|
+  config.before(:each) do
+    Apress::Documentation.reset!
+  end
+end

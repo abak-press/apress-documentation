@@ -1,0 +1,21 @@
+:ruby
+  all_dependencies = local_assigns.fetch(:all_dependencies)
+  current_document = local_assigns.fetch(:current_document)
+  dependencies = local_assigns.fetch(:dependencies)
+
+.dependencies-container
+- if dependencies.present?
+  .js-dependencies
+    - dependencies.each do |contract_def, dep|
+      = render 'apress/documentation/presenters/dependency_presenter/links',
+               dependency: dep,
+               contract_def: contract_def,
+               current_document: current_document
+
+- if all_dependencies.present?
+  .js-all-dependencies.hidden
+    - all_dependencies.each do |contract_def, dep|
+      = render 'apress/documentation/presenters/dependency_presenter/links',
+               dependency: dep,
+               contract_def: contract_def,
+               current_document: current_document

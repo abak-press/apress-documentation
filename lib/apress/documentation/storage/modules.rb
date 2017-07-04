@@ -33,13 +33,15 @@ module Apress
 
         # Public
         #
-        # Добавление модуля
+        # Поиск модуля
         #
         # Arguments
         #   slug - String (или любой совместимый объект) - слаг документа
         #
         # Example usage:
         #   Apress::Documentation::Modules.instance[slug]
+        #
+        # Returns Document
         def [](slug)
           data[slug.to_s]
         end
@@ -59,11 +61,21 @@ module Apress
           return unless doc
 
           keys.each do |key|
-            doc = doc.documents[key]
+            doc = doc.documents[key] || (doc.respond_to?(:swagger_documents) && doc.swagger_documents[key])
             break unless doc
           end
 
           doc
+        end
+
+        # Public
+        #
+        # Удаление всех документов, используется для тестирования
+        #
+        # Example usage:
+        #  Apress::Documentation.reset!
+        def reset!
+          @data = {}
         end
       end
     end

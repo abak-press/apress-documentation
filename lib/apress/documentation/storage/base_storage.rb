@@ -12,6 +12,9 @@ module Apress
       #   }
       # }
       class BaseStorage
+        # Public: Составной слаг, используется как URL
+        attr_reader :slug
+
         def self.json_attr_names
           @json_attr_names ||= []
         end
@@ -23,6 +26,7 @@ module Apress
           attr_accessor(*method_names)
         end
 
+        # Public: Сериализует объект в JSON
         def as_json(options = {})
           self.class.json_attr_names.each_with_object({}) do |attr_name, json|
             value = send(attr_name)
@@ -40,6 +44,43 @@ module Apress
 
             send("#{key}=", value)
           end
+        end
+
+        def eql?(other)
+          slug == other.to_s
+        end
+        alias_method :==, :eql?
+
+        def to_s
+          slug.to_s
+        end
+
+        def hash
+          slug.hash
+        end
+
+        def inspect
+          "<#{self.class} slug = #{slug}>"
+        end
+
+        # Public: находит зависимости для текущего документа
+        #
+        # Arguments:
+        #  reverse - флаг для отпеределения какой тип зависимостей нужно вернуть
+        #    возможные значения
+        #      - false (default) - документы, от которых зависит текущий документ (AKA зависимости self)
+        #      - true - документы, которые зависят от текущего (AKA потребители self)
+        #
+        # Returns Array of Pairs - [[doc1, doc2], [doc1, doc2]]
+        def dependencies(reverse: false)
+          @dependencies ||= Hash.new do |hash, key|
+            hash[key] = Storage::DependencyGraph.instance.dependencies(
+              self,
+              reverse: key
+            )
+          end
+
+          @dependencies[reverse]
         end
       end
     end

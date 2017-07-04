@@ -1,7 +1,11 @@
 require 'rails/all'
 require 'haml-rails'
 require 'swagger/blocks'
+require 'rgl/adjacency'
+require 'rgl/dot'
+require 'apress/documentation/extensions/rgl/adjacency'
 require 'apress/documentation/swagger/schema'
+require 'apress/documentation/storage/dependency_graph'
 require 'apress/documentation/storage/swagger_document'
 require 'apress/documentation/storage/document'
 require 'apress/documentation/storage/modules'
@@ -23,6 +27,15 @@ module Apress
 
         yield if block_given?
       end
+    end
+
+    def self.reset!
+      Apress::Documentation::Storage::DependencyGraph.instance.reset!
+      modules.reset!
+    end
+
+    def self.validate_dependencies!
+      Apress::Documentation::Storage::DependencyGraph.instance.validate!
     end
 
     class << self

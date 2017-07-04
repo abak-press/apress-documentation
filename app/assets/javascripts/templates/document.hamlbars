@@ -10,6 +10,16 @@
 %span
   {{fetch document.tests "Нет данных"}}
 
-%h4 Модули-потребители
-%span
-  {{fetch document.consumers "Нет данных"}}
+%h4 Зависимости
+.js-dependencies-container
+  .switch
+    %input.switch-checkbox.js-dependency-switch{type: "checkbox", id: "doc-switch-{{document.slug}}"}
+    %label.switch-label{for: "doc-switch-{{document.slug}}"}
+      %span.switch-inner
+      %span.switch-switch
+
+  %h5 Зависит от
+  {{{fetch document.depends_on "Нет данных"}}}
+
+  %h5 Используется в
+  {{{fetch document.consumers "Нет данных"}}}

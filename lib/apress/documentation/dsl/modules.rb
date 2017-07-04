@@ -29,8 +29,10 @@ module Apress
           module_slug = module_slug.to_s
           document = self[module_slug]
           document ||= Apress::Documentation::Storage::Document.new(module_slug)
-          document.compile(fields, &block)
+          Apress::Documentation::Storage::DependencyGraph.instance.add_document(document)
           self << document
+
+          document.compile(fields, &block)
         end
       end
     end
