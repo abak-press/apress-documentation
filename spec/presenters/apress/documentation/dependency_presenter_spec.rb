@@ -94,5 +94,46 @@ RSpec.describe Apress::Documentation::DependencyPresenter, type: :presenter do
         presenter.render_deps
       end
     end
+
+    context 'for swagger' do
+      before do
+        Apress::Documentation.build(:module_3) do
+          document(:doc) do
+            depends_on('module_4/doc1/docs_docIndex')
+          end
+        end
+
+        Apress::Documentation.build(:module_4) do
+          document(:doc1) do
+            title 'cool document'
+
+            swagger_bind do
+              business_desc 'cool document 2'
+
+              swagger_path('api/docs') do
+                operation :get do
+                  key :operationId, 'docIndex'
+                  key :tags, ['docs']
+                end
+              end
+            end
+          end
+        end
+      end
+
+      let(:current_document) { Apress::Documentation.fetch_document('module_3') }
+      it 'calls proper render' do
+        doc = Apress::Documentation.fetch_document('module_3/doc')
+        swagger_document = Apress::Documentation.fetch_document('module_4/doc1/docs_docIndex')
+        expect(view).to receive(:render).with(
+          "apress/documentation/presenters/dependency_presenter/dependencies",
+          all_dependencies: [[doc, swagger_document]],
+          dependencies: [[doc, swagger_document]],
+          current_document: current_document
+        )
+
+        presenter.render_deps
+      end
+    end
   end
 end

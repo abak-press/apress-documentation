@@ -54,12 +54,16 @@ module Apress
       #
       # Returns Array of Pairs [[doc, depend_doc], [doc_3, depend_doc]
       def child_dependencies(document, reverse: false)
-        if !document.respond_to?(:documents) || document.documents.blank?
+        unless document.respond_to?(:documents)
           return document.dependencies(reverse: reverse)
         end
 
         child_deps = document.documents.inject([]) do |deps, (_, doc)|
           deps.concat(child_dependencies(doc, reverse: reverse))
+        end
+
+        document.swagger_documents.inject(child_deps) do |deps, (_, doc)|
+          deps.concat(doc.dependencies(reverse: reverse))
         end
 
         child_deps.concat(document.dependencies(reverse: reverse))
