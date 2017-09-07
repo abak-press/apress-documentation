@@ -1,4 +1,20 @@
-#  (tag: v0.1.0)
+# v0.2.0
 
- * 2017-04-21 [3c66be9](../../commit/3c66be9) - __(Denis Korobicyn)__ Initial commit 
- * 2017-04-21 [db97835](../../commit/db97835) - __(Mamedaliev Kirill)__ Initial commit 
+* 2017-09-07 [f35173f](../../commit/f35173f) - __(Denis Korobicyn)__ Release 0.2.0 
+* 2017-07-31 [ad4e903](../../commit/ad4e903) - __(Denis Korobicyn)__ fix: dependencies for swagger documents 
+https://jira.railsc.ru/browse/PC4-19812
+
+* 2017-05-19 [6b3e186](../../commit/6b3e186) - __(Denis Korobicyn)__ feature: modules connections 
+https://jira.railsc.ru/browse/PC4-19783
+
+* 2017-05-12 [9064dc6](../../commit/9064dc6) - __(Denis Korobicyn)__ fix: assets compilation 
+https://jira.railsc.ru/browse/PC4-19468
+
+* 2017-05-10 [62fe08a](../../commit/62fe08a) - __(Denis Korobicyn)__ chore: add missing load_hook for documents_controller 
+* 2017-05-04 [fd80fa6](../../commit/fd80fa6) - __(Denis Korobicyn)__ chore: add load_docs_for method 
+* 2017-05-03 [87005d6](../../commit/87005d6) - __(Denis Korobicyn)__ fix: repo url in gemspec and repo name in readme 
+
+# v0.1.0
+
+* 2017-04-21 [3c66be9](../../commit/3c66be9) - __(Denis Korobicyn)__ Initial commit 
+* 2017-04-21 [db97835](../../commit/db97835) - __(Mamedaliev Kirill)__ Initial commit 
