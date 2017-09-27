@@ -1,4 +1,4 @@
-= cache params[:path] do
+= cache ['documentation', params[:path]] do
   - if @document
     - if @document.swagger?
       = render 'swagger', document: @document
