@@ -1,6 +1,10 @@
+# v0.2.1
+
+* 2017-09-27 [44813fa](../../commit/44813fa) - __(Denis Korobicyn)__ Release 0.2.1 
+* 2017-09-27 [beec36c](../../commit/beec36c) - __(Denis Korobicyn)__ fix: proper cache key 
+
 # v0.2.0
 
-* 2017-09-07 [f35173f](../../commit/f35173f) - __(Denis Korobicyn)__ Release 0.2.0 
 * 2017-07-31 [ad4e903](../../commit/ad4e903) - __(Denis Korobicyn)__ fix: dependencies for swagger documents 
 https://jira.railsc.ru/browse/PC4-19812
 
