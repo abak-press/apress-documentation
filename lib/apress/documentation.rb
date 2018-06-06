@@ -40,7 +40,9 @@ module Apress
 
     class << self
       extend Forwardable
+
       def_delegators :modules, :data, :fetch_document, :build
+      def_delegators 'Rails.application.config.documentation', :[], :[]=, :fetch
     end
   end
 end
