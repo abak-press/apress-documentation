@@ -1,6 +1,11 @@
+# v0.3.0
+
+* 2018-06-06 [d7030f2](../../commit/d7030f2) - __(Maxim Tretyakov)__ Release 0.3.0 
+* 2018-06-06 [386ff0e](../../commit/386ff0e) - __(Maxim Tretyakov)__ feat: route scope option 
+https://jira.railsc.ru/browse/ORDERS-1786
+
 # v0.2.1
 
-* 2017-09-27 [44813fa](../../commit/44813fa) - __(Denis Korobicyn)__ Release 0.2.1 
 * 2017-09-27 [beec36c](../../commit/beec36c) - __(Denis Korobicyn)__ fix: proper cache key 
 
 # v0.2.0
