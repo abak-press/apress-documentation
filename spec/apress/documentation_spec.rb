@@ -327,4 +327,16 @@ RSpec.describe Apress::Documentation do
       expect(module_document.documents['document'].documents['child'].description).to eq 'Cool document'
     end
   end
+
+  context 'config' do
+    it 'has default path scope' do
+      expect(subject.fetch(:path_scope)).to be_nil
+    end
+
+    it 'applies changes' do
+      expect { subject[:path_scope] = :cosmos }
+        .to change { subject.fetch(:path_scope) }
+        .from(nil).to(:cosmos)
+    end
+  end
 end
