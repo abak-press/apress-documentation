@@ -4,7 +4,11 @@ module Apress
       extend ActiveSupport::Concern
 
       included do
-        before_filter :load_docs
+        if (Rails::VERSION::MAJOR == 4 && Rails::VERSION::MINOR == 2) || Rails::VERSION::MAJOR > 4
+          before_action :load_docs
+        else
+          before_filter :load_docs
+        end
       end
 
       def load_docs

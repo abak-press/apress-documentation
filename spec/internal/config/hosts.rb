@@ -1,0 +1,1 @@
+HOST = 'test.host'.freeze

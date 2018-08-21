@@ -1,5 +1,13 @@
 require 'spec_helper'
 
+def form_params(p)
+  if Rails::VERSION::MAJOR > 4
+    {params: p}
+  else
+    p
+  end
+end
+
 describe Apress::Documentation::DocumentsController, type: :controller do
   after do
     Apress::Documentation.data.clear
@@ -23,7 +31,7 @@ describe Apress::Documentation::DocumentsController, type: :controller do
 
     context 'with path' do
       it 'response with 200' do
-        get :show, path: 'docs/doc1'
+        get :show, form_params(path: 'docs/doc1')
 
         expect(assigns(:document).title).to eq 'test'
 

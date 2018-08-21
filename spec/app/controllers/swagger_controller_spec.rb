@@ -1,5 +1,13 @@
 require 'spec_helper'
 
+def form_params(p)
+  if Rails::VERSION::MAJOR > 4
+    {params: p}
+  else
+    p
+  end
+end
+
 describe Apress::Documentation::SwaggerController, type: :controller do
   describe '#show' do
     it 'response with 200' do
@@ -10,7 +18,7 @@ describe Apress::Documentation::SwaggerController, type: :controller do
 
     context 'with params' do
       it 'response ok' do
-        get :show, module: 'somemodule'
+        get :show, form_params(module: 'somemodule')
 
         expect(response).to have_http_status(:ok)
       end
