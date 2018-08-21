@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   scope path: Apress::Documentation[:path_scope] do
-    scope module: :apress, constraints: {domain: :current} do
+    scope module: :apress, constraints: Apress::Documentation[:routes_constraints] do
       scope module: :documentation do
         get "/documentation/(*path)", to: 'documents#show', as: :documentation
       end

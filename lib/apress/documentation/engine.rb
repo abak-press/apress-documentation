@@ -6,7 +6,7 @@ module Apress
         config.root.join('app', 'presenters')
       ]
 
-      config.documentation = {path_scope: nil}
+      config.documentation = {path_scope: nil, routes_constraints: {domain: :current}}
 
       initializer "apress-documentation", before: :load_init_rb do |app|
         RGL::DirectedAdjacencyGraph.include Apress::Documentation::Extensions::RGL::Adjacency
