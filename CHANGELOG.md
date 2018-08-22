@@ -1,6 +1,11 @@
+# v0.4.0
+
+* 2018-08-22 [2d3b37b](../../commit/2d3b37b) - __(Artem Napolskih)__ chore: Add automatic publication 
+* 2018-08-21 [c419339](../../commit/c419339) - __(Artem Napolskih)__ fix: removes dependence on abak domain system 
+* 2018-08-21 [dddd8ea](../../commit/dddd8ea) - __(Artem Napolskih)__ feature: rails 5.x support added 
+
 # v0.3.0
 
-* 2018-06-06 [d7030f2](../../commit/d7030f2) - __(Maxim Tretyakov)__ Release 0.3.0 
 * 2018-06-06 [386ff0e](../../commit/386ff0e) - __(Maxim Tretyakov)__ feat: route scope option 
 https://jira.railsc.ru/browse/ORDERS-1786
 
