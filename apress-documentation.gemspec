@@ -17,8 +17,6 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.metadata['allowed_push_host'] = 'https://gems.railsc.ru'
-
   spec.add_runtime_dependency 'rails', '>= 3.2'
   spec.add_runtime_dependency 'haml-rails', '>= 0.4'
   spec.add_runtime_dependency 'swagger-blocks', '>= 1.3'

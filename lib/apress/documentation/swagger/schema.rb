@@ -4,20 +4,7 @@ module Apress
       class Schema
         include ::Swagger::Blocks
 
-        def self.swagger_path_with_docs(*args, &block)
-          self.resource = true
-          swagger_path_without_docs(*args, &block)
-        end
-
-        def self.swagger_schema_with_docs(*args, &block)
-          self.schema_block = block
-          swagger_schema_without_docs(*args, &block)
-        end
-
         class << self
-          alias_method_chain :swagger_schema, :docs
-          alias_method_chain :swagger_path, :docs
-
           attr_accessor :resource, :document_slug, :schema_block
         end
 
@@ -32,6 +19,20 @@ module Apress
         def self.inherited(child)
           swagger_classes << child
         end
+
+        module Extensions
+          def swagger_path(*args, &block)
+            self.resource = true
+            super
+          end
+
+          def swagger_schema(*args, &block)
+            self.schema_block = block
+            super
+          end
+        end
+
+        singleton_class.prepend Extensions
       end
     end
   end
